@@ -1,5 +1,10 @@
 package com.scrumtrek.simplestore;
 
+/**
+ * 
+ * @author pkulimov
+ * ewewqewq
+ */
 public class MainClass {
 	 public static void main(String[] args) {
 		// Create movies
@@ -9,8 +14,6 @@ public class MainClass {
 
 		// Create customers
 		Customer custMickeyMouse = new Customer("Mickey Mouse");
-		Customer custDonaldDuck = new Customer("Donald Duck");
-		Customer custMinnieMouse = new Customer("Minnie Mouse");
 
 		// Create rentals
 		Rental rental1 = new Rental(movCinderella, 5);

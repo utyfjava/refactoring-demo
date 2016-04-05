@@ -5,6 +5,12 @@ import java.util.List;
 
 import org.json.JSONObject;
 
+/**
+ * 
+ * @author pkulimov
+ *  qweqweqwe
+ *  
+ */
 public class Customer {
 	private String m_Name;
 	private List<Rental> m_Rentals = new ArrayList<Rental>();
@@ -69,7 +75,11 @@ public class Customer {
 		
 		return l;
 	}
-	
+
+	/**
+	 * 
+	 * @return String
+	 */
 	public String StatementString () {
 		double totalAmount = 0;
 		String result = "Rental record for " + m_Name + "\n";
@@ -82,6 +92,10 @@ public class Customer {
 		return result;
 	}
 	
+	/**
+	 * 
+	 * @return String
+	 */
 	public String StatementJson () {
 		double totalAmount = 0;
 		JSONObject j = new JSONObject();

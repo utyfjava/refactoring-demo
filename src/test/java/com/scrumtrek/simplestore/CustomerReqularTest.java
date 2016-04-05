@@ -21,8 +21,8 @@ public class CustomerReqularTest {
 	@Before
 	public void beforeTest () {
 		cn = "Customer";
-		mn = "Regular Film";
-		m = new Movie(mn, PriceCodes.Regular);
+		mn = "XXX Film";
+		m = new Movie(mn, PriceCodes.XXXPriceCode);
 		r = new Rental(m, 7);
 		c = new Customer(cn);
 		c.addRental(r);
@@ -31,9 +31,11 @@ public class CustomerReqularTest {
 	@Test
 	public void runTestStatementString () {
 		String en = "Rental record for " + cn + "\n" + 
-				    "\t" + mn + "\t9.5" + "\n" + 
-				    "Amount owed is 9.5";	
+				    "\t" + mn + "\t8.5" + "\n" + 
+				    "Amount owed is 8.5";	
 		String stmt = c.StatementString();
+		
+		System.out.println(stmt);
 		Assert.assertNotNull(stmt);
 		Assert.assertEquals(en, stmt);
 	}
@@ -44,6 +46,6 @@ public class CustomerReqularTest {
 		l = c.Statement();
 
 		Assert.assertEquals(mn, l.get(0).getMovie().getTitle());
-		Assert.assertEquals(9.5d, l.get(0).getAmount(), 0d);
+		Assert.assertEquals(8.5d, l.get(0).getAmount(), 0d);
 	}
 }
