@@ -4,13 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.json.JSONObject;
-import org.json.JSONString;
-import org.json.JSONStringer;
 
 public class Customer {
 	private String m_Name;
 	private List<Rental> m_Rentals = new ArrayList<Rental>();
-	int frequentRenterPoints = 0;
 
 	public Customer(String name) {
 		m_Name = name;
@@ -31,7 +28,6 @@ public class Customer {
 	 */
 	public List<StatementRental> Statement()
 	{
-		double totalAmount = 0;
 		List<StatementRental> l = new ArrayList<StatementRental>();
 		
 		for(Rental each: m_Rentals) {
@@ -58,17 +54,17 @@ public class Customer {
 						thisAmount = (each.getDaysRented() - 3) * 1.5;
 					}
 					break;
+					
+				case XXXPriceCode:
+					thisAmount += 4;
+					if (each.getDaysRented() > 4)
+					{
+						thisAmount += (each.getDaysRented() - 4) * 1.5;
+					}
+					break;
 			}
 			
 			l.add(new StatementRental(each.getMovie(), thisAmount));
-			// Add frequent renter points
-			frequentRenterPoints++;
-
-			// Add bonus for a two-day new-release rental
-			if ((each.getMovie().getPriceCode() == PriceCodes.NewRelease) && (each.getDaysRented() > 1))
-			{
-				frequentRenterPoints ++;
-			}
 		}
 		
 		return l;
@@ -81,8 +77,7 @@ public class Customer {
 			result += "\t" + sr.getMovie().getTitle() + "\t" + sr.getAmount() + "\n";
 			totalAmount += sr.getAmount();
 		}
-		result += "Amount owed is " + totalAmount + "\n";
-		result += "You earned " + frequentRenterPoints + " frequent renter points.";
+		result += "Amount owed is " + totalAmount;
 		
 		return result;
 	}
@@ -99,7 +94,6 @@ public class Customer {
 		j.put("customer", m_Name);
 		j.append("rental", jm);
 		j.put("totalAmount", totalAmount);
-		j.put("frequentRenterPoints", frequentRenterPoints);
 
 		return j.toString();
 	}
