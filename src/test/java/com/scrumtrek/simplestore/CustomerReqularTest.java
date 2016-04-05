@@ -42,10 +42,9 @@ public class CustomerReqularTest {
 	
 	@Test
 	public void runTestStatementJson () {
-		String stmt = c.StatementString();
-		System.out.println(stmt);
+		String stmt = c.StatementJson();
 		Assert.assertNotNull(stmt);
-		Assert.assertEquals(stmt.equals(cn), true);
+		Assert.assertEquals(stmt.contains(cn), true);
 	}
 	
 	@Test

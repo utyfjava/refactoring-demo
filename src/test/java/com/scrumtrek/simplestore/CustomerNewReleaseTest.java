@@ -40,9 +40,9 @@ public class CustomerNewReleaseTest {
 	
 	@Test
 	public void runTestStatementJson () {
-		String stmt = c.StatementString();
+		String stmt = c.StatementJson();
 		Assert.assertNotNull(stmt);
-		Assert.assertEquals(stmt.equals(cn), true);
+		Assert.assertEquals(stmt.contains(cn), true);
 	}
 	
 	@Test
