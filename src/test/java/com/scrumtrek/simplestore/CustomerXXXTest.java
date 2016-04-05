@@ -11,7 +11,7 @@ import com.scrumtrek.simplestore.Movie;
 import com.scrumtrek.simplestore.PriceCodes;
 import com.scrumtrek.simplestore.Rental;
 
-public class CustomerNewReleaseTest {
+public class CustomerXXXTest {
 	private static String cn;
 	private static String mn;
 	private static Movie m;
@@ -21,8 +21,8 @@ public class CustomerNewReleaseTest {
 	@Before
 	public void beforeTest () {
 		cn = "Customer";
-		mn = "NewRelease Film";
-		m = new Movie(mn, PriceCodes.NewRelease);
+		mn = "Regular Film";
+		m = new Movie(mn, PriceCodes.Regular);
 		r = new Rental(m, 7);
 		c = new Customer(cn);
 		c.addRental(r);
@@ -31,8 +31,8 @@ public class CustomerNewReleaseTest {
 	@Test
 	public void runTestStatementString () {
 		String en = "Rental record for " + cn + "\n" + 
-				    "\t" + mn + "\t21.0" + "\n" + 
-				    "Amount owed is 21.0";	
+				    "\t" + mn + "\t9.5" + "\n" + 
+				    "Amount owed is 9.5";	
 		String stmt = c.StatementString();
 		Assert.assertNotNull(stmt);
 		Assert.assertEquals(en, stmt);
@@ -51,6 +51,6 @@ public class CustomerNewReleaseTest {
 		l = c.Statement();
 
 		Assert.assertEquals(mn, l.get(0).getMovie().getTitle());
-		Assert.assertEquals(21.0d, l.get(0).getAmount(), 0d);
+		Assert.assertEquals(9.5d, l.get(0).getAmount(), 0d);
 	}
 }

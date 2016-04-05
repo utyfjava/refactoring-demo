@@ -40,6 +40,13 @@ public class CustomerChildrensTest {
 	}
 	
 	@Test
+	public void runTestStatementJson () {
+		String stmt = c.StatementJson();
+		Assert.assertNotNull(stmt);
+		Assert.assertEquals(stmt.contains(cn), true);
+	}
+	
+	@Test
 	public void runTestStatement () {
 		List<StatementRental> l = new ArrayList<StatementRental>();
 		l = c.Statement();

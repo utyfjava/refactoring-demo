@@ -41,6 +41,14 @@ public class CustomerReqularTest {
 	}
 	
 	@Test
+	public void runTestStatementJson () {
+		String stmt = c.StatementString();
+		System.out.println(stmt);
+		Assert.assertNotNull(stmt);
+		Assert.assertEquals(stmt.equals(cn), true);
+	}
+	
+	@Test
 	public void runTestStatement () {
 		List<StatementRental> l = new ArrayList<StatementRental>();
 		l = c.Statement();
