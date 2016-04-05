@@ -3,9 +3,14 @@ package com.scrumtrek.simplestore;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.json.JSONObject;
+import org.json.JSONString;
+import org.json.JSONStringer;
+
 public class Customer {
 	private String m_Name;
 	private List<Rental> m_Rentals = new ArrayList<Rental>();
+	int frequentRenterPoints = 0;
 
 	public Customer(String name) {
 		m_Name = name;
@@ -20,12 +25,14 @@ public class Customer {
 		m_Rentals.add(arg);
 	}
 
-	public String Statement()
+	/**
+	 * 
+	 * @return List StatementRental
+	 */
+	public List<StatementRental> Statement()
 	{
 		double totalAmount = 0;
-		int frequentRenterPoints = 0;
-				
-		String result = "Rental record for " + m_Name + "\n";
+		List<StatementRental> l = new ArrayList<StatementRental>();
 		
 		for(Rental each: m_Rentals) {
 			double thisAmount = 0;
@@ -52,7 +59,8 @@ public class Customer {
 					}
 					break;
 			}
-
+			
+			l.add(new StatementRental(each.getMovie(), thisAmount));
 			// Add frequent renter points
 			frequentRenterPoints++;
 
@@ -61,16 +69,39 @@ public class Customer {
 			{
 				frequentRenterPoints ++;
 			}
-
-			// Show figures for this rental
-			result += "\t" + each.getMovie().getTitle() + "\t" + thisAmount + "\n";
-			totalAmount += thisAmount;
 		}
-
-		// Add footer lines
+		
+		return l;
+	}
+	
+	public String StatementString () {
+		double totalAmount = 0;
+		String result = "Rental record for " + m_Name + "\n";
+		for(StatementRental sr: this.Statement()) {
+			result += "\t" + sr.getMovie().getTitle() + "\t" + sr.getAmount() + "\n";
+			totalAmount += sr.getAmount();
+		}
 		result += "Amount owed is " + totalAmount + "\n";
 		result += "You earned " + frequentRenterPoints + " frequent renter points.";
+		
 		return result;
+	}
+	
+	public String StatementJson () {
+		double totalAmount = 0;
+		JSONObject j = new JSONObject();
+		JSONObject jm = new  JSONObject();
+		for(StatementRental sr: this.Statement()) {
+			jm.put(sr.getMovie().getTitle(), sr.getAmount());
+			totalAmount += sr.getAmount();
+		}
+		
+		j.put("customer", m_Name);
+		j.append("rental", jm);
+		j.put("totalAmount", totalAmount);
+		j.put("frequentRenterPoints", frequentRenterPoints);
+
+		return j.toString();
 	}
 }
 

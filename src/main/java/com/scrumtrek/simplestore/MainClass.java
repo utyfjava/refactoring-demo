@@ -23,10 +23,14 @@ public class MainClass {
 		custMickeyMouse.addRental(rental3);
 
 		// Generate invoice
-		String statement = custMickeyMouse.Statement();
+		String statement = custMickeyMouse.StatementString();
 
 		// Print the statement
-		System.out.println(statement);		
+		System.out.println(statement);
+		
+		System.out.println("");
+		statement = custMickeyMouse.StatementJson();
+		System.out.println(statement);
 	}
 }
 
