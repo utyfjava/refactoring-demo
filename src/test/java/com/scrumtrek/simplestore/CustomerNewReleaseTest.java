@@ -18,18 +18,18 @@ public class CustomerNewReleaseTest {
 	private static Rental r;
 	private static Customer c;
 	
-	@Before
-	public void beforeTest () {
+	public void beforeTest (int days) {
 		cn = "Customer";
 		mn = "NewRelease Film";
 		m = new Movie(mn, PriceCodes.NewRelease);
-		r = new Rental(m, 7);
+		r = new Rental(m, days);
 		c = new Customer(cn);
 		c.addRental(r);
 	}
 
 	@Test
 	public void runTestStatementString () {
+		beforeTest(7);
 		String en = "Rental record for " + cn + "\n" + 
 				    "\t" + mn + "\t21.0" + "\n" + 
 				    "Amount owed is 21.0";	
@@ -40,6 +40,7 @@ public class CustomerNewReleaseTest {
 	
 	@Test
 	public void runTestStatementJson () {
+		beforeTest(7);
 		String stmt = c.StatementJson();
 		Assert.assertNotNull(stmt);
 		Assert.assertEquals(stmt.contains(cn), true);
@@ -47,6 +48,7 @@ public class CustomerNewReleaseTest {
 	
 	@Test
 	public void runTestStatement () {
+		beforeTest(7);
 		List<StatementRental> l = new ArrayList<StatementRental>();
 		l = c.Statement();
 
